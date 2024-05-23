@@ -33,17 +33,17 @@ public class YWaterMarkRender implements YGLSurfaceView.YGLRender {
             1f, -1f,
             -1f, 1f,
             1f, 1f,
-            //用来 加一个 图片水印 到左上角
+            //左上角图片水印
             -1f, 0.5f,
             0f, 0.5f,
             -1f, 1f,
             0f, 1f,
 
-            //用来 加一个文字水印 到右下角
+            //右下角文字水印
             0f, -1f,
             1f, -1f,
-            0f, -0.8f,
-            1f, -0.8f
+            0f, -0.5f,
+            1f, -0.5f
     };
     //纹理坐标
     float[] fragmentData = {
@@ -107,9 +107,9 @@ public class YWaterMarkRender implements YGLSurfaceView.YGLRender {
         //解绑纹理 指的是离开对 纹理的配置，进入下一个状态
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
 
-        bitmapTextureId = TextureUtils.createImageTexture(mContext, R.drawable.bjwd);
+        bitmapTextureId = TextureUtils.createImageTexture(mContext, R.drawable.wifi);
 
-        Bitmap txtBitmap = TextureUtils.createTextImage("York的IT旅途", 36, "#ff0000", "#00000000", 0);
+        Bitmap txtBitmap = TextureUtils.createTextImage("测试", 50, "#ffffff", "#50000000", 0);
         textTextureId = TextureUtils.loadBitmapTexture(txtBitmap);
         txtBitmap.recycle();
     }
@@ -143,7 +143,7 @@ public class YWaterMarkRender implements YGLSurfaceView.YGLRender {
         //绑定 textureIds[0] 到已激活的 2D纹理 GL_TEXTURE0上
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureIds[0]);
         //获取图片的 bitmap
-        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.byg);
+        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.wall);
         //绑定 bitmap 到textureIds[0]纹理
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
         bitmap.recycle();//用完及时回收

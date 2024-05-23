@@ -22,6 +22,12 @@ public class YQuadrilateralRender implements YGLSurfaceView.YGLRender {
     public YQuadrilateralRender(Context mContext) {
         this.mContext = mContext;
         //顶点坐标
+//        float[] vertexData = {
+//                -1f, 0f,
+//                0f, 1f,
+//                0f,-1f,
+//                1f, 0f
+//        };
         float[] vertexData = {
                 -1f, 0f,
                 0f, 1f,

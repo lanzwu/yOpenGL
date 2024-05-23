@@ -1,7 +1,6 @@
-#version 300
-layout (location = 0) in vec4 vPosition;
-layout (location = 0) in vec2 fPosition;
-out vec2 ft_Position;
+attribute vec4 vPosition;
+attribute vec2 fPosition;
+varying vec2 ft_Position;
 
 void main(){
     gl_Position = vPosition;

@@ -1,7 +1,7 @@
 package com.york.media.opengl.egl;
 
 import android.content.Context;
-import android.opengl.GLES20;
+import android.opengl.GLES30;
 
 import com.york.media.opengl.utils.LogUtil;
 
@@ -21,7 +21,7 @@ public class YShaderUtil {
     public static String getRawResource(Context context, int rawId) {
         InputStream inputStream = context.getResources().openRawResource(rawId);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         String line;
         try {
             while ((line = reader.readLine()) != null) {
@@ -42,19 +42,19 @@ public class YShaderUtil {
      * @return 返回 ID
      */
     private static int loadShader(int shaderType, String source) {
-        int shader = GLES20.glCreateShader(shaderType);
+        int shader = GLES30.glCreateShader(shaderType);
         if (shader != 0) {
             //加载 shader
-            GLES20.glShaderSource(shader, source);
+            GLES30.glShaderSource(shader, source);
             //编译 shader
-            GLES20.glCompileShader(shader);
+            GLES30.glCompileShader(shader);
 
             //检查是否编译成功
             int[] compile = new int[1];
-            GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compile, 0);
-            if (compile[0] != GLES20.GL_TRUE) {
+            GLES30.glGetShaderiv(shader, GLES30.GL_COMPILE_STATUS, compile, 0);
+            if (compile[0] != GLES30.GL_TRUE) {
                 LogUtil.e("shader compile error");
-                GLES20.glDeleteShader(shader);
+                GLES30.glDeleteShader(shader);
                 shader = 0;
             }
             //编译成功返回 shader ID
@@ -65,18 +65,18 @@ public class YShaderUtil {
     }
 
     public static int createProgram(String vertexSource, String fragmentSource) {
-        int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertexSource);
-        int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentSource);
+        int vertexShader = loadShader(GLES30.GL_VERTEX_SHADER, vertexSource);
+        int fragmentShader = loadShader(GLES30.GL_FRAGMENT_SHADER, fragmentSource);
 
         if (vertexShader != 0 && fragmentShader != 0) {
             //创建一个渲染程序 program
-            int program = GLES20.glCreateProgram();
+            int program = GLES30.glCreateProgram();
             //将顶点着色器程序添加到渲染程序中
-            GLES20.glAttachShader(program, vertexShader);
+            GLES30.glAttachShader(program, vertexShader);
             //将片元着色器程序也添加到渲染程序中
-            GLES20.glAttachShader(program, fragmentShader);
+            GLES30.glAttachShader(program, fragmentShader);
             //链接源程序
-            GLES20.glLinkProgram(program);
+            GLES30.glLinkProgram(program);
 
             return program;
         }

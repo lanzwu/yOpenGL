@@ -56,9 +56,9 @@ public class YCircularRender implements YGLSurfaceView.YGLRender {
 
     @Override
     public void onDrawFrame() {
-        //清除屏幕，此处用的是红色
+        //清除屏幕
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-        GLES20.glClearColor(0f, 0f, 1f, 1f);
+        GLES20.glClearColor(1f, 1f, 1f, 1f);
         //使用着色器源程序
         GLES20.glUseProgram(program);
         //绘制绿色

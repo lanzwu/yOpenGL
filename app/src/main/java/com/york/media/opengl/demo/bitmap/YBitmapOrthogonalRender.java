@@ -90,19 +90,19 @@ public class YBitmapOrthogonalRender implements YGLSurfaceView.YGLRender {
         //只获取一下要加载图片的大小，不加载
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(mContext.getResources(), R.drawable.nobb, options);
+        BitmapFactory.decodeResource(mContext.getResources(), R.drawable.view, options);
         int imageHeight = options.outHeight;
         int imageWidth = options.outWidth;
 
         if (width > height) {
             Matrix.orthoM(matrix, 0,
-                    -width / ((height / imageHeight * 1f) * imageWidth * 1f), width / ((height / imageHeight * 1f) * imageWidth * 1f),
+                    -width / ((height / (imageHeight * 1f)) * imageWidth * 1f), width / ((height / (imageHeight * 1f)) * imageWidth * 1f),
                     -1f, 1f,
                     -1f, 1f);
         } else {
             Matrix.orthoM(matrix, 0,
                     -1, 1,
-                    -height / ((width / imageWidth * 1f) * imageHeight * 1f), height / ((width / imageWidth * 1f) * imageHeight * 1f),
+                    -height / ((width / (imageWidth * 1f)) * imageHeight * 1f), height / ((width / (imageWidth * 1f)) * imageHeight * 1f),
                     -1f, 1f);
         }
 
@@ -131,7 +131,7 @@ public class YBitmapOrthogonalRender implements YGLSurfaceView.YGLRender {
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
         //绑定 2D纹理
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureIds[0]);
-        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.nobb);
+        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.view);
         //设置图片 bitmap
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
         bitmap.recycle();//用完及时回收啊

@@ -130,7 +130,7 @@ public class YUsedFboRender implements YGLSurfaceView.YGLRender {
         //绑定纹理到 fbo成功后 退出纹理绑定，进入下一环节
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
 
-        imgTextureId = TextureUtils.createImageTexture(mContext, R.drawable.nobb);
+        imgTextureId = TextureUtils.createImageTexture(mContext, R.drawable.wifi);
 
     }
 

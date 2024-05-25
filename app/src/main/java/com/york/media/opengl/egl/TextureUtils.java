@@ -90,8 +90,15 @@ public class TextureUtils {
         bitmap.copyPixelsToBuffer(bitmapBuffer);
         bitmapBuffer.flip();
 
-        GLES30.glTexImage2D(GLES30.GL_TEXTURE_2D, 0, GLES30.GL_RGBA, bitmap.getWidth(),
-                bitmap.getHeight(), 0, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, bitmapBuffer);
+        GLES30.glTexImage2D(
+                GLES30.GL_TEXTURE_2D,
+                0,
+                GLES30.GL_RGBA,
+                bitmap.getWidth(), bitmap.getHeight(),
+                0,
+                GLES30.GL_RGBA,
+                GLES30.GL_UNSIGNED_BYTE,
+                bitmapBuffer);
         return textureIds[0];
     }
 

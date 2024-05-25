@@ -101,12 +101,12 @@ public class YVboRender implements YGLSurfaceView.YGLRender {
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
 
-        //绑定bitmap 到  textureIds[0] 2D纹理
-        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.nobb);
+        //获取到的图片数据传给纹理对象
+        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.view);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
         bitmap.recycle();
 
-        //解绑纹理 指的是离开对 纹理的配置，进入下一个状态
+        //解绑纹理 指的是离开对纹理的配置，进入下一个状态
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
     }
 
@@ -134,11 +134,10 @@ public class YVboRender implements YGLSurfaceView.YGLRender {
         GLES20.glEnableVertexAttribArray(fPosition);
         //使能之后，为片元属性赋值，从VBO里获取 绑定纹理坐标; 注意：最后一个参数为 VBO里的偏移量
         GLES20.glVertexAttribPointer(fPosition, 2, GLES20.GL_FLOAT, false, 8, vertexData.length * 4);
-
         //退出 VBO的使用
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 
-        //要开始绘制纹理了，激活纹理 0号， 之所以激活 0号，是因为在没设置点的情况下默认是 0号
+        //要开始绘制纹理了，激活纹理0号， 之所以激活0号，是因为在只有一个纹理的情况下默认0号
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
         //绑定 bitmapTexture 到纹理
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, bitmapTexture);

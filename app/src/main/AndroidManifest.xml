@@ -21,6 +21,7 @@
         <activity android:name=".activity.EmptyActivity" />
         <activity android:name=".activity.ShapeActivity" />
         <activity android:name=".activity.BitmapActivity" />
+        <activity android:name=".activity.BitmapFilterActivity" />
         <activity android:name=".activity.VboActivity" />
         <activity android:name=".activity.FboActivity" />
         <activity android:name=".activity.OrthogonalActivity" />

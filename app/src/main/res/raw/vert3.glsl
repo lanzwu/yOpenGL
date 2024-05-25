@@ -1,4 +1,5 @@
 #version 300 es
+//顶点坐标变量
 layout (location = 0) in vec4 vPosition;
 //新增的接收纹理坐标的变量
 layout (location = 1) in vec2 fPosition;

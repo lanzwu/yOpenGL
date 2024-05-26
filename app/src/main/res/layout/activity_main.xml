@@ -38,13 +38,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="gotoWaterMarkActivity"
-        android:text="纹理叠加" />
+        android:text="单纹理单元叠加显示" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="gotoVboActivity"
-        android:text="OpenGl 使用VBO" />
+        android:onClick="gotoMixActivity"
+        android:text="多纹理单元混合显示" />
 
 <!--    <Button-->
 <!--        android:layout_width="match_parent"-->

@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(bitmapFilter);
     }
 
-    public void gotoVboActivity(View view) {
-        Intent vboActivity = new Intent(this, VboActivity.class);
+    public void gotoMixActivity(View view) {
+        Intent vboActivity = new Intent(this, MixActivity.class);
         startActivity(vboActivity);
     }
 

@@ -3,7 +3,6 @@ package com.york.media.opengl.demo.fbo;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.york.media.opengl.demo.vbo.YVboRender;
 import com.york.media.opengl.egl.YGLSurfaceView;
 
 public class YFboSurfaceView extends YGLSurfaceView {

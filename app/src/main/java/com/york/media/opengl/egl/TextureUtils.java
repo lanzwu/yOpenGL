@@ -99,6 +99,7 @@ public class TextureUtils {
                 GLES30.GL_RGBA,
                 GLES30.GL_UNSIGNED_BYTE,
                 bitmapBuffer);
+        bitmapBuffer.clear();
         return textureIds[0];
     }
 

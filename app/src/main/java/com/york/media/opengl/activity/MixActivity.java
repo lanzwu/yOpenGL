@@ -7,11 +7,11 @@ import com.york.media.opengl.R;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class VboActivity extends AppCompatActivity {
+public class MixActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vbo);
+        setContentView(R.layout.activity_mix);
     }
 }

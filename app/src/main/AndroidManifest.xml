@@ -22,7 +22,7 @@
         <activity android:name=".activity.ShapeActivity" />
         <activity android:name=".activity.BitmapActivity" />
         <activity android:name=".activity.BitmapFilterActivity" />
-        <activity android:name=".activity.VboActivity" />
+        <activity android:name=".activity.MixActivity" />
         <activity android:name=".activity.FboActivity" />
         <activity android:name=".activity.OrthogonalActivity" />
         <activity android:name=".activity.WaterMarkActivity"/>

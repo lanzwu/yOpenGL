@@ -57,21 +57,15 @@ public class YBitmapOrthogonalRender implements YGLSurfaceView.YGLRender {
     @Override
     public void onSurfaceCreated() {
         //加载顶点着色器 shader
-        String vertexSource = YShaderUtil.getRawResource(mContext, R.raw.screen_vert_matrix);
+        String vertexSource = YShaderUtil.getRawResource(mContext, R.raw.vert_matrix);
         //加载片元着色器 shader
-        String fragmentSource = YShaderUtil.getRawResource(mContext, R.raw.screen_frag);
+        String fragmentSource = YShaderUtil.getRawResource(mContext, R.raw.frag_1_texture);
         //获取源程序
         program = YShaderUtil.createProgram(vertexSource, fragmentSource);
-        //从渲染程序中得到着顶点色器中的属性
-        vPosition = GLES20.glGetAttribLocation(program, "vPosition");
-        //从渲染程序中得到片元着色器中的属性
-        fPosition = GLES20.glGetAttribLocation(program, "fPosition");
-        //从渲染程序中得到投影的属性
-        u_matrix = GLES20.glGetUniformLocation(program, "u_Matrix");
 
-        //创建 1个纹理,放入到 int [] textureIds, 一共有 30多个 纹理
+        //创建 1个纹理,放入到 int [] textureIds
         textureIds = new int[1];
-        GLES20.glGenTextures(1, textureIds, 0);//第三个参数是指从哪儿开始取
+        GLES20.glGenTextures(1, textureIds, 0);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureIds[0]);
 
         //设置环绕方式
@@ -116,16 +110,16 @@ public class YBitmapOrthogonalRender implements YGLSurfaceView.YGLRender {
 
         //使用着色器源程序
         GLES20.glUseProgram(program);
-        GLES20.glUniformMatrix4fv(u_matrix, 1, false, matrix, 0);
+        GLES20.glUniformMatrix4fv(2, 1, false, matrix, 0);
 
         //使能顶点属性数组，使之有效
-        GLES20.glEnableVertexAttribArray(vPosition);
+        GLES20.glEnableVertexAttribArray(0);
         //使能之后，为顶点属性赋值，绑定顶点坐标
-        GLES20.glVertexAttribPointer(vPosition, 2, GLES20.GL_FLOAT, false, 8, vertexBuffer);
+        GLES20.glVertexAttribPointer(0, 2, GLES20.GL_FLOAT, false, 8, vertexBuffer);
         //使能片元属性数组，使之有效
-        GLES20.glEnableVertexAttribArray(fPosition);
+        GLES20.glEnableVertexAttribArray(1);
         //使能之后，为片元属性赋值，绑定纹理坐标
-        GLES20.glVertexAttribPointer(fPosition, 2, GLES20.GL_FLOAT, false, 8, fragmentBuffer);
+        GLES20.glVertexAttribPointer(1, 2, GLES20.GL_FLOAT, false, 8, fragmentBuffer);
 
         //激活纹理 0号
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);

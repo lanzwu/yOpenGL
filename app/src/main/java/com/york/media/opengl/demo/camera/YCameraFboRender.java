@@ -101,7 +101,7 @@ public class YCameraFboRender {
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
         txtTextureId = TextureUtils.loadBitmapTexture(bitmap);
         bitmap.recycle();
-        bitmapTextureId = TextureUtils.createImageTexture(mContext, R.drawable.byg);
+        bitmapTextureId = TextureUtils.createImageTexture(mContext, R.drawable.wifi);
     }
 
     public void onChange(int width, int height) {

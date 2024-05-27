@@ -21,7 +21,6 @@ public class YBitmapRender implements YGLSurfaceView.YGLRender {
     private final FloatBuffer fragmentBuffer;
     private int program;
     private int[] textureIds;
-    private int vboID;
 
     //顶点坐标
     float[] vertexData = {
@@ -69,7 +68,7 @@ public class YBitmapRender implements YGLSurfaceView.YGLRender {
         //创建 VBO
         int[] vbo = new int[1];
         GLES30.glGenBuffers(1, vbo, 0);
-        vboID = vbo[0];
+        int vboID = vbo[0];
         //绑定 VBO
         GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, vboID);
 
@@ -88,6 +87,7 @@ public class YBitmapRender implements YGLSurfaceView.YGLRender {
         GLES30.glEnableVertexAttribArray(1);
         //使能之后，为片元属性赋值，从VBO里获取 绑定纹理坐标; 注意：最后一个参数为 VBO里的偏移量
         GLES30.glVertexAttribPointer(1, 2, GLES30.GL_FLOAT, false, 2 * 4, vertexData.length * 4);
+
         //解绑 VBO，离开对 VBO的配置，进入下一个状态
         GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, 0);
 

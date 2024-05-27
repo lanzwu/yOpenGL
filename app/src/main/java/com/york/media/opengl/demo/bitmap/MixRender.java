@@ -3,8 +3,10 @@ package com.york.media.opengl.demo.bitmap;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.opengl.GLES20;
 import android.opengl.GLES30;
 import android.opengl.GLUtils;
+import android.opengl.Matrix;
 
 import com.york.media.opengl.R;
 import com.york.media.opengl.egl.YGLSurfaceView;
@@ -25,11 +27,10 @@ public class MixRender implements YGLSurfaceView.YGLRender {
     private final FloatBuffer vertexBuffer;
     private final FloatBuffer fragmentBuffer;
     private int program;
-    private int texture1;
-    private int texture2;
-
     private int[] textureIds;
-    private int vboID;
+    private final float[] matrix = new float[16];
+
+
     //顶点坐标
     float[] vertexData = {
             -1f, -1f,
@@ -63,7 +64,7 @@ public class MixRender implements YGLSurfaceView.YGLRender {
     @Override
     public void onSurfaceCreated() {
         //加载顶点着色器 shader
-        String vertexSource = YShaderUtil.getRawResource(mContext, R.raw.vert);
+        String vertexSource = YShaderUtil.getRawResource(mContext, R.raw.vert_matrix);
         //加载片元着色器 shader
         String fragmentSource = YShaderUtil.getRawResource(mContext, R.raw.frag_2_texture);
         //获取源程序
@@ -72,7 +73,7 @@ public class MixRender implements YGLSurfaceView.YGLRender {
         //创建 VBO
         int[] vbo = new int[1];
         GLES30.glGenBuffers(1, vbo, 0);
-        vboID = vbo[0];
+        int vboID = vbo[0];
 
         GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, vboID);
         //分配 VBO需要的缓存大小
@@ -92,8 +93,7 @@ public class MixRender implements YGLSurfaceView.YGLRender {
         //解绑 VBO，离开对 VBO的配置，进入下一个状态
         GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, 0);
 
-
-        textureIds = new int[2];
+        textureIds = new int[3];
 
         //创建1个纹理对象
         GLES30.glGenTextures(1, textureIds, 0);
@@ -106,7 +106,7 @@ public class MixRender implements YGLSurfaceView.YGLRender {
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR);
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR);
         //获取到的图片数据传给纹理对象
-        Bitmap bitmap1 = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.wall);
+        Bitmap bitmap1 = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.grass);
         GLUtils.texImage2D(GLES30.GL_TEXTURE_2D, 0, bitmap1, 0);
         bitmap1.recycle();
         //解绑纹理,离开对纹理的配置，进入下一个状态
@@ -123,9 +123,26 @@ public class MixRender implements YGLSurfaceView.YGLRender {
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR);
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR);
         //获取到的图片数据传给纹理对象
-        Bitmap bitmap2 = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.moto);
+        Bitmap bitmap2 = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.durt);
         GLUtils.texImage2D(GLES30.GL_TEXTURE_2D, 0, bitmap2, 0);
         bitmap2.recycle();
+        //解绑纹理,离开对纹理的配置，进入下一个状态
+        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, 0);
+
+        //创建第二个纹理对象
+        GLES30.glGenTextures(1, textureIds, 2);
+        GLES30.glActiveTexture(GLES30.GL_TEXTURE2);
+        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textureIds[2]);
+        //设置纹理的环绕方式
+        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_S, GLES30.GL_REPEAT);
+        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_T, GLES30.GL_REPEAT);
+        //设置纹理的过滤方式
+        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR);
+        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR);
+        //获取到的图片数据传给纹理对象
+        Bitmap bitmap3 = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.noise);
+        GLUtils.texImage2D(GLES30.GL_TEXTURE_2D, 0, bitmap3, 0);
+        bitmap3.recycle();
         //解绑纹理,离开对纹理的配置，进入下一个状态
         GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, 0);
     }
@@ -134,6 +151,24 @@ public class MixRender implements YGLSurfaceView.YGLRender {
     public void onSurfaceChanged(int width, int height) {
         //设置窗口大小
         GLES30.glViewport(0, 0, width, height);
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(mContext.getResources(), R.drawable.noise, options);
+        int imageHeight = options.outHeight;
+        int imageWidth = options.outWidth;
+
+        if (width > height) {
+            Matrix.orthoM(matrix, 0,
+                    -width / ((height / (imageHeight * 1f)) * imageWidth * 1f), width / ((height / (imageHeight * 1f)) * imageWidth * 1f),
+                    -1f, 1f,
+                    -1f, 1f);
+        } else {
+            Matrix.orthoM(matrix, 0,
+                    -1, 1,
+                    -height / ((width / (imageWidth * 1f)) * imageHeight * 1f), height / ((width / (imageWidth * 1f)) * imageHeight * 1f),
+                    -1f, 1f);
+        }
     }
 
     @Override
@@ -144,9 +179,12 @@ public class MixRender implements YGLSurfaceView.YGLRender {
         //使用着色器源程序
         GLES30.glUseProgram(program);
 
-        //指定哪个uniform采样器对应哪个纹理单元，glUniform1i代表一个数字和int类型
+        GLES20.glUniformMatrix4fv(2, 1, false, matrix, 0);
+
+        //指定哪个采样器对应哪个纹理单元，glUniform1i代表一个数字和int类型
         GLES30.glUniform1i(GLES30.glGetUniformLocation(program, "Texture0"), 0);
         GLES30.glUniform1i(GLES30.glGetUniformLocation(program, "Texture1"), 1);
+        GLES30.glUniform1i(GLES30.glGetUniformLocation(program, "noise"), 2);
 
         //激活纹理单元0号
         GLES30.glActiveTexture(GLES30.GL_TEXTURE0);
@@ -157,6 +195,11 @@ public class MixRender implements YGLSurfaceView.YGLRender {
         GLES30.glActiveTexture(GLES30.GL_TEXTURE1);
         //绑定 bitmapTexture 到纹理对象1
         GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textureIds[1]);
+
+        //激活纹理单元2号
+        GLES30.glActiveTexture(GLES30.GL_TEXTURE2);
+        //绑定 bitmapTexture 到纹理对象1
+        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textureIds[2]);
 
         //绘制
         GLES30.glDrawArrays(GLES30.GL_TRIANGLE_STRIP, 0, 4);

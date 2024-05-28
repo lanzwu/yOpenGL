@@ -55,7 +55,7 @@ public class YCameraFboRender {
 
     public YCameraFboRender(Context context) {
         this.mContext = context;
-        bitmap = TextureUtils.createTextImage("York的IT旅途", 36, "#ffffff", "#00000000", 0);
+        bitmap = TextureUtils.createTextImage("test", 36, "#ffffff", "#00000000", 0);
         float r = 1.0f * bitmap.getWidth() / bitmap.getHeight();
         float w = r * 0.1f;
 

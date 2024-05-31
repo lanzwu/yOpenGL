@@ -60,16 +60,16 @@ public class YBitmapFilterRender implements YGLSurfaceView.YGLRender {
     @Override
     public void onSurfaceCreated() {
         //加载顶点着色器 shader
-        String vertexSource = YShaderUtil.getRawResource(mContext, R.raw.vert);
+        String vertexSource = YShaderUtil.getRawResource(mContext, R.raw.vert_normal);
         //加载片元着色器 shader
         String fragmentSource;
         if(id == R.id.mYGLSurfaceView1){
-            fragmentSource = YShaderUtil.getRawResource(mContext, R.raw.negative);
+            fragmentSource = YShaderUtil.getRawResource(mContext, R.raw.frag_filter_negative);
         } else if (id == R.id.mYGLSurfaceView2){
-            fragmentSource = YShaderUtil.getRawResource(mContext, R.raw.grey);
+            fragmentSource = YShaderUtil.getRawResource(mContext, R.raw.frag_filter_grey);
         } else {
-            vertexSource = YShaderUtil.getRawResource(mContext, R.raw.blurvert);
-            fragmentSource = YShaderUtil.getRawResource(mContext, R.raw.blur);
+            vertexSource = YShaderUtil.getRawResource(mContext, R.raw.vert_blur);
+            fragmentSource = YShaderUtil.getRawResource(mContext, R.raw.frag_filter_blur);
         }
 
         //获取源程序
@@ -111,11 +111,11 @@ public class YBitmapFilterRender implements YGLSurfaceView.YGLRender {
         //使用着色器源程序
         GLES30.glUseProgram(program);
 
-        //使能顶点属性数组，使之有效
+        //使能顶点属性数组
         GLES30.glEnableVertexAttribArray(0);
         //使能之后，为顶点属性赋值，绑定顶点坐标
         GLES30.glVertexAttribPointer(0, 2, GLES30.GL_FLOAT, false, 8, vertexBuffer);
-        //使能片元属性数组，使之有效
+        //使能片元属性数组
         GLES30.glEnableVertexAttribArray(1);
         //使能之后，为片元属性赋值，绑定纹理坐标
         GLES30.glVertexAttribPointer(1, 2, GLES30.GL_FLOAT, false, 8, fragmentBuffer);

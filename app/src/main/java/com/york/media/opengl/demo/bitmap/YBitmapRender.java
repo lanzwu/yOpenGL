@@ -54,7 +54,7 @@ public class YBitmapRender implements YGLSurfaceView.YGLRender {
     @Override
     public void onSurfaceCreated() {
         //加载顶点着色器 shader
-        String vertexSource = YShaderUtil.getRawResource(mContext, R.raw.vert);
+        String vertexSource = YShaderUtil.getRawResource(mContext, R.raw.vert_normal);
         //加载片元着色器 shader
         String fragmentSource = YShaderUtil.getRawResource(mContext, R.raw.frag_1_texture);
         //获取源程序
@@ -66,11 +66,11 @@ public class YBitmapRender implements YGLSurfaceView.YGLRender {
         fPosition = GLES30.glGetAttribLocation(program, "fPosition");*/
 
 
-        //使能顶点属性数组，使之有效
+        //使能顶点属性数组
         GLES30.glEnableVertexAttribArray(0);
         //使能之后，为顶点属性赋值
         GLES30.glVertexAttribPointer(0, 2, GLES30.GL_FLOAT, false, 2 * 4, vertexBuffer);
-        //使能片元属性数组，使之有效
+        //使能片元属性数组
         GLES30.glEnableVertexAttribArray(1);
         //使能之后，为片元属性赋值，从VBO里获取 绑定纹理坐标; 注意：最后一个参数为 VBO里的偏移量
         GLES30.glVertexAttribPointer(1, 2, GLES30.GL_FLOAT, false, 2 * 4, fragmentBuffer);
@@ -90,7 +90,7 @@ public class YBitmapRender implements YGLSurfaceView.YGLRender {
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR);
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR);
         //获取图片的 bitmap
-        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.view);
+        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.dollar);
         //将bitmap数据传输 到textureIds[0]纹理
         GLUtils.texImage2D(GLES30.GL_TEXTURE_2D, 0, bitmap, 0);
         bitmap.recycle();//用完及时回收

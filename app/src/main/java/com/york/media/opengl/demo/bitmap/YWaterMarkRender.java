@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.GLES30;
 import android.opengl.GLUtils;
-import android.util.Log;
 
 import com.york.media.opengl.R;
 import com.york.media.opengl.egl.YGLSurfaceView;
@@ -27,7 +26,7 @@ public class YWaterMarkRender implements YGLSurfaceView.YGLRender {
     private int[] vao;
 
     //顶点坐标
-    float[] vertexData1 = {
+    /*float[] vertexData = {
             -0.5f, 1f,
             0.5f, 1f,
             -0.5f, 0.5f,
@@ -47,7 +46,7 @@ public class YWaterMarkRender implements YGLSurfaceView.YGLRender {
             0.5f, -0.5f,
             -0.5f, -1f,
             0.5f, -1f
-    };
+    };*/
 
     float[] vertexData = {
             -0.5f, 1f,   //0
@@ -107,7 +106,7 @@ public class YWaterMarkRender implements YGLSurfaceView.YGLRender {
     @Override
     public void onSurfaceCreated() {
         //加载顶点着色器 shader
-        String vertexSource = YShaderUtil.getRawResource(mContext, R.raw.vert);
+        String vertexSource = YShaderUtil.getRawResource(mContext, R.raw.vert_normal);
         //加载片元着色器 shader
         String fragmentSource = YShaderUtil.getRawResource(mContext, R.raw.frag_1_texture);
         //获取源程序
@@ -123,7 +122,6 @@ public class YWaterMarkRender implements YGLSurfaceView.YGLRender {
         //绑定VAO 0
         GLES30.glBindVertexArray(vao[0]);
 
-        Log.d("zhou", "ebo start1 " + GLES30.glGetError());
         //创建 EBO
         int[] ebo = new int[1];
         GLES30.glGenBuffers(1, ebo, 0);
@@ -278,6 +276,7 @@ public class YWaterMarkRender implements YGLSurfaceView.YGLRender {
         GLES30.glDrawElements(GLES30.GL_TRIANGLE_STRIP, 6, GLES20.GL_UNSIGNED_SHORT, 0);
         GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, 0);
 
+        //解绑VAO
         GLES30.glBindVertexArray(0);
     }
 }

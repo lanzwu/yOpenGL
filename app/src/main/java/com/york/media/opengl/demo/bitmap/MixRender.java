@@ -82,11 +82,11 @@ public class MixRender implements YGLSurfaceView.YGLRender {
         GLES30.glBufferSubData(GLES30.GL_ARRAY_BUFFER, 0, vertexData.length * 4, vertexBuffer);
         //设置纹理坐标数据的值到 VBO
         GLES30.glBufferSubData(GLES30.GL_ARRAY_BUFFER, vertexData.length * 4, fragmentData.length * 4, fragmentBuffer);
-        //使能顶点属性数组，使之有效
+        //使能顶点属性数组
         GLES30.glEnableVertexAttribArray(0);
         //使能之后，为顶点属性赋值，从VBO里获取 绑定顶点坐标; 注意：最后一个参数如果是 vertexBuffer，那么就没有用到 VBO，那就还是从CPU里取顶点
         GLES30.glVertexAttribPointer(0, 2, GLES30.GL_FLOAT, false, 8, 0);
-        //使能片元属性数组，使之有效
+        //使能片元属性数组
         GLES30.glEnableVertexAttribArray(1);
         //使能之后，为片元属性赋值，从VBO里获取 绑定纹理坐标; 最后一个参数为 VBO里的偏移量
         GLES30.glVertexAttribPointer(1, 2, GLES30.GL_FLOAT, false, 8, vertexData.length * 4);

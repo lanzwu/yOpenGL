@@ -5,7 +5,6 @@ import android.graphics.SurfaceTexture;
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
-import android.os.Build;
 
 import com.york.media.opengl.R;
 import com.york.media.opengl.egl.YGLSurfaceView;
@@ -15,8 +14,6 @@ import com.york.media.opengl.utils.LogUtil;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-
-import androidx.annotation.RequiresApi;
 
 public class YCameraRender implements YGLSurfaceView.YGLRender {
 
@@ -155,7 +152,6 @@ public class YCameraRender implements YGLSurfaceView.YGLRender {
         GLES20.glBindTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, 0);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onSurfaceChanged(int width, int height) {
         this.showWidth = width;
@@ -181,10 +177,10 @@ public class YCameraRender implements YGLSurfaceView.YGLRender {
         //绑定 FBO 开始使用
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, fboId);
 
-        //使能顶点属性数据，使之有效,使能之后，为顶点属性赋值，绑定顶点坐标
+        //使能顶点属性数据，为顶点属性赋值，绑定顶点坐标
         GLES20.glEnableVertexAttribArray(vPosition);
         GLES20.glVertexAttribPointer(vPosition, 2, GLES20.GL_FLOAT, false, 8, 0);
-        //使能片元属性数据，使之有效, 使能之后，为片元属性赋值，绑定纹理坐标
+        //使能片元属性数据, 使能之后，为片元属性赋值，绑定纹理坐标
         GLES20.glEnableVertexAttribArray(fPosition);
         GLES20.glVertexAttribPointer(fPosition, 2, GLES20.GL_FLOAT, false, 8, vertexData.length * 4);
         //绘制

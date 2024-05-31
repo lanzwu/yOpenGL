@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.BitmapActivity">
 
-    <com.york.media.opengl.demo.bitmap.YBitmapSurfaceView
+    <com.learn.opengl.demo.bitmap.YBitmapSurfaceView
         android:id="@+id/mYGLSurfaceView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

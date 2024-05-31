@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.york.media.opengl.demo.empty.YEmptySurfaceView
+    <com.learn.opengl.demo.empty.YEmptySurfaceView
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </RelativeLayout>

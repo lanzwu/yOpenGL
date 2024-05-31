@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.york.media.opengl.demo.bitmap.YWaterMarkSurface
+    <com.learn.opengl.demo.bitmap.YWaterMarkSurface
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </RelativeLayout>

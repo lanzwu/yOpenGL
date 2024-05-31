@@ -4,15 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.york.media.opengl.demo.shape.YQuadrilateralSurface
+    <com.learn.opengl.demo.shape.YQuadrilateralSurface
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-    <com.york.media.opengl.demo.shape.YCircularSurface
+    <com.learn.opengl.demo.shape.YCircularSurface
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-    <com.york.media.opengl.demo.shape.YTriangleSurface
+    <com.learn.opengl.demo.shape.YTriangleSurface
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
